@@ -1,5 +1,5 @@
 
-export default galleryItems;
+
 
 const galleryItems = [
   {
@@ -66,6 +66,7 @@ const galleryItems = [
     description: "Lighthouse Coast Sea",
   },
 ];
+export default galleryItems;
 
 
 // === создание шаблоной карти===
