@@ -1,6 +1,3 @@
-
-
-
 const galleryItems = [
   {
     preview:
@@ -67,7 +64,6 @@ const galleryItems = [
   },
 ];
 export default galleryItems;
-
 
 // === создание шаблоной карти===
 // function createImgCardMarkup(galleryItems) {
