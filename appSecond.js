@@ -13,12 +13,11 @@ refs.mainGallery.addEventListener("click", isGalleryImage);
 refs.btnLightBox.addEventListener("click", closeLightBoxWindow);
 refs.modal.addEventListener("click", closeLightBoxImage);
 refs.overlayEl.addEventListener("click", onOverlayClose);
-document.addEventListener("keydown", arrow);
 
 // сoздаю пример карточки
 function createImgCardMarkup(galleryItems) {
   return galleryItems
-    .map(({ preview, original, description }) => {
+    .map(({ preview, original, description }, index) => {
       return `<li class="gallery__item >
 	  <a
 		class="gallery__link"
@@ -29,6 +28,7 @@ function createImgCardMarkup(galleryItems) {
 		  src="${preview}"
 		  data-source="${original}" //взял єтот атрибут в функцию isGalleryImage
 		  alt="${description}"
+		  data-index="${index}"
 		/>
 	  </a>
 	</li>`;
@@ -55,6 +55,8 @@ function isGalleryImage(event) {
     refs.lightboxImage.src = event.target.getAttribute("data-source"); // взял из шаблонних строк для  замени картинки на большую
     refs.lightboxImage.alt = event.target.alt; // добавил описание через alt
     // console.log(lightboxImage); // виводит адрес и альт
+
+    refs.lightboxImage.dataset.index = event.target.dataset.index;
   }
   window.addEventListener("keyup", keyEscape); // добавил прослушиватель на кнопку `Escape`
 }
@@ -83,12 +85,35 @@ function onOverlayClose() {
   closeLightBoxWindow();
 }
 
-//   ===============
+//   на клавиатуре в право и в лево перелистивание галереи
 
-function arrow(event) {
-  if (event.code == 37) {
-    // дайте хотяби намек
-  } else if (event.code == 39) {
-    // что сюда писать
+window.addEventListener("keydown", (event) => {
+  if (event.code === "ArrowLeft") {
+    onArrowLeft();
   }
+  if (event.code === "ArrowRight") {
+    onArrowRight();
+  }
+});
+
+function onArrowLeft() {
+  let index = +refs.lightboxImage.dataset.index;
+  if (index === 0) {
+    step(galleryItems.length - 1);
+    return;
+  }
+  step(index, -1);
+}
+function onArrowRight() {
+  let index = +refs.lightboxImage.dataset.index;
+  if (index === galleryItems.length - 1) {
+    step(0);
+    return;
+  }
+  step(index, 1);
+}
+
+function step(index, step = 0) {
+  refs.lightboxImage.dataset.index = `${index + step}`;
+  refs.lightboxImage.src = galleryItems[index + step].original;
 }
