@@ -1,3 +1,6 @@
+
+export default galleryItems;
+
 const galleryItems = [
   {
     preview:
@@ -63,110 +66,112 @@ const galleryItems = [
     description: "Lighthouse Coast Sea",
   },
 ];
+
+
 // === создание шаблоной карти===
-function createImgCardMarkup(galleryItems) {
-  return galleryItems
-    .map(({ preview, original, description }) => {
-      return `<li class="gallery__item >
-	<a
-	  class="gallery__link"
-	  href="${original}"
-	>
-	  <img
-		class="gallery__image"
-		src="${preview}"
-		data-source="${original}" //взял єтот атрибут в функцию isGalleryImage
-		alt="${description}"
-	  />
-	</a>
-  </li>`;
-    })
-    .join("");
-}
-// ===
+// function createImgCardMarkup(galleryItems) {
+//   return galleryItems
+//     .map(({ preview, original, description }) => {
+//       return `<li class="gallery__item >
+// 	<a
+// 	  class="gallery__link"
+// 	  href="${original}"
+// 	>
+// 	  <img
+// 		class="gallery__image"
+// 		src="${preview}"
+// 		data-source="${original}" //взял єтот атрибут в функцию isGalleryImage
+// 		alt="${description}"
+// 	  />
+// 	</a>
+//   </li>`;
+//     })
+//     .join("");
+// }
+// // ===
 
-const mainGalery = document.querySelector(".js-gallery"); // нашел основной тег
-// console.log(mainGalery);
+// const mainGalery = document.querySelector(".js-gallery"); // нашел основной тег
+// // console.log(mainGalery);
 
-const cardsItem = createImgCardMarkup(galleryItems); // вивел всею разметку в карточки
-// console.log(cardsItem);
+// const cardsItem = createImgCardMarkup(galleryItems); // вивел всею разметку в карточки
+// // console.log(cardsItem);
 
-mainGalery.insertAdjacentHTML("beforeend", cardsItem); // вставил разметку
-// console.log(mainGalery);
+// mainGalery.insertAdjacentHTML("beforeend", cardsItem); // вставил разметку
+// // console.log(mainGalery);
 
-mainGalery.addEventListener("click", isGalleryImage); // повесил обработчик собития клик на ul
-// console.log(mainGalery);
+// mainGalery.addEventListener("click", isGalleryImage); // повесил обработчик собития клик на ul
+// // console.log(mainGalery);
 
-// ===lightBox
-const ligthBoxEl = document.querySelector(".js-lightbox"); // нашел js-lightbox
-// console.log(ligthBoxEl);
+// // ===lightBox
+// const ligthBoxEl = document.querySelector(".js-lightbox"); // нашел js-lightbox
+// // console.log(ligthBoxEl);
 
-const modal = document.querySelector(".lightbox__content"); //
+// const modal = document.querySelector(".lightbox__content"); //
 
-const lightboxImage = document.querySelector(".lightbox__image"); //
+// const lightboxImage = document.querySelector(".lightbox__image"); //
 
-function isGalleryImage(event) {
-  const isGalleryImageElement = event.target.classList.contains(
-    "gallery__image"
-  );
-  if (!isGalleryImageElement) {
-    return;
-  } else if (isGalleryImageElement) {
-    event.preventDefault();
-    ligthBoxEl.classList.add("is-open"); // добавил клас на елемент
-    lightboxImage.src = event.target.getAttribute("data-source"); // взял из шаблонних строк для  замени картинки на большую
-    lightboxImage.alt = event.target.alt; // добавил описание через alt
-    // console.log(lightboxImage); // виводит адрес и альт
-  }
-  window.addEventListener("keyup", keyEscape); // добавил прослушиватель на кнопку `Escape`
-}
+// function isGalleryImage(event) {
+//   const isGalleryImageElement = event.target.classList.contains(
+//     "gallery__image"
+//   );
+//   if (!isGalleryImageElement) {
+//     return;
+//   } else if (isGalleryImageElement) {
+//     event.preventDefault();
+//     ligthBoxEl.classList.add("is-open"); // добавил клас на елемент
+//     lightboxImage.src = event.target.getAttribute("data-source"); // взял из шаблонних строк для  замени картинки на большую
+//     lightboxImage.alt = event.target.alt; // добавил описание через alt
+//     // console.log(lightboxImage); // виводит адрес и альт
+//   }
+//   window.addEventListener("keyup", keyEscape); // добавил прослушиватель на кнопку `Escape`
+// }
 
-const btnLightBox = document.querySelector('[data-action="close-lightbox"]'); // нашел кнопку для закрития
+// const btnLightBox = document.querySelector('[data-action="close-lightbox"]'); // нашел кнопку для закрития
 
-btnLightBox.addEventListener("click", closeLightBoxWindow); // добавил прослушиватель на кнопку
+// btnLightBox.addEventListener("click", closeLightBoxWindow); // добавил прослушиватель на кнопку
 
-function closeLightBoxWindow(event) {
-  // event.preventDefault();      // если ето разкоменчу то ремув не работает
-  ligthBoxEl.classList.remove("is-open");
-  lightboxImage.src = "";
-  lightboxImage.alt = "";
-  window.removeEventListener("keyup", keyEscape);
-}
+// function closeLightBoxWindow(event) {
+//   // event.preventDefault();      // если ето разкоменчу то ремув не работает
+//   ligthBoxEl.classList.remove("is-open");
+//   lightboxImage.src = "";
+//   lightboxImage.alt = "";
+//   window.removeEventListener("keyup", keyEscape);
+// }
 
-modal.addEventListener("click", closeLightBoxImage); // прослушивательна на ligthbox__content
+// modal.addEventListener("click", closeLightBoxImage); // прослушивательна на ligthbox__content
 
-function closeLightBoxImage(event) {
-  if (event.target === event.currentTarget) {
-    closeLightBoxWindow();
-  }
-}
+// function closeLightBoxImage(event) {
+//   if (event.target === event.currentTarget) {
+//     closeLightBoxWindow();
+//   }
+// }
 
-function keyEscape(event) {
-  if (event.code === "Escape") {
-    closeLightBoxWindow();
-  }
-}
+// function keyEscape(event) {
+//   if (event.code === "Escape") {
+//     closeLightBoxWindow();
+//   }
+// }
 
-// ==========клик по оверлею
+// // ==========клик по оверлею
 
-const overlayEl = document.querySelector(".lightbox__overlay"); // нашел overlay
-// console.log(overlayEl);
+// const overlayEl = document.querySelector(".lightbox__overlay"); // нашел overlay
+// // console.log(overlayEl);
 
-overlayEl.addEventListener("click", onOverlayClose); // повесил прослушиватель
+// overlayEl.addEventListener("click", onOverlayClose); // повесил прослушиватель
 
-function onOverlayClose() {
-  // создал функцию закрития по клику на оверлей
-  closeLightBoxWindow();
-}
+// function onOverlayClose() {
+//   // создал функцию закрития по клику на оверлей
+//   closeLightBoxWindow();
+// }
 
-// ===пролистивание клавишами влево и  вправо
+// // ===пролистивание клавишами влево и  вправо
 
-document.addEventListener("keydown", arrow);
+// document.addEventListener("keydown", arrow);
 
-function arrow(event) {
-  if (event.code == 37) {
-    // дайте хотяби намек
-  } else if (event.code == 39) {
-    // что сюда писать
-  }
-}
+// function arrow(event) {
+//   if (event.code == 37) {
+//     // дайте хотяби намек
+//   } else if (event.code == 39) {
+//     // что сюда писать
+//   }
+// }
