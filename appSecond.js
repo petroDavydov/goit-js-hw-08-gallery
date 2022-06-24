@@ -38,7 +38,7 @@ function createImgCardMarkup(galleryItems) {
 // ===
 
 const cardsItem = createImgCardMarkup(galleryItems); // вивел всею разметку в карточки
-// console.log(cardsItem);
+console.log(cardsItem);
 
 refs.mainGallery.insertAdjacentHTML("beforeend", cardsItem); // вставил разметку
 // console.log(mainGalery);
